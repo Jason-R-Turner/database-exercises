@@ -1,0 +1,1 @@
+To practice learning how to use SQL through MySQL
