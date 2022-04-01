@@ -61,12 +61,16 @@ WHERE YEAR(hire_date) LIKE '199%' AND birth_date LIKE '%-12-25' ORDER BY birth_d
 
 # ORDER BY exercises
 
-SELECT first_name, last_name
-FROM employees
+SELECT 
+    first_name, last_name
+FROM
+    employees
 ORDER BY last_name;
 
-SELECT first_name, last_name
-FROM employees
+SELECT 
+    first_name, last_name
+FROM
+    employees
 ORDER BY last_name DESC;
 
 SELECT first_name, last_name

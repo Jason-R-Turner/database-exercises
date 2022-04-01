@@ -1,4 +1,6 @@
 USE albums_db;
+SHOW TABLES;
+DESCRIBE albums;
 
 SELECT 
     COUNT(artist), COUNT(id)
@@ -29,10 +31,12 @@ SELECT
     release_date
 FROM
     albums;
+    
 SELECT 
     MAX(release_date)
 FROM
     albums;
+    
 SELECT 
     MIN(release_date)
 FROM
@@ -110,20 +114,30 @@ WHERE
 -- 4f. Albums where the genre is just Rock are Sgt. Pepper's Lonely Hearts Club Band, 1, Abbey Road, Born in the U.S.A., and Supernatural
 
 SELECT 
-    name
+    name, genre
 FROM
     albums
 WHERE
     FIND_IN_SET('rock', `genre`);
 
--- 4f. Albums where the genre has Rock are Their Greatest Hits (1971-1975), Sgt. Pepper's Lonely Hearts Club Band, Hotel California, 1, Dangerous, Abbey Road, Born in the U.S.A., Brothers in Arms, Supernatural
+-- 4f. (Incorrect) Albums where the genre has Rock are Their Greatest Hits (1971-1975), Sgt. Pepper's Lonely Hearts Club Band, Hotel California, 1, Dangerous, Abbey Road, Born in the U.S.A., Brothers in Arms, Supernatural
 -- Can also use SELECT name, genre FROM albums WHERE genre LIKE '%Rock$'; but it includes things like soft rock, which is too broad.
 -- Here's what somewhere is did.  SELECT
-   /* name, genre
+
+SELECT
+    name, genre
 FROM
     albums
 WHERE
-    genre = ‘Rock’
-		or genre LIKE ‘Rock,%’
-        or genre LIKE ‘%, Rock, %’
-        or genre LIKE ‘%, Rock’;*/
+    genre = 'Rock'
+		or genre LIKE 'Rock,%'
+        or genre LIKE '%, Rock, %'
+        or genre LIKE '%, Rock';
+        
+SELECT name, genre FROM albums WHERE LOCATE('Rock', genre) > 0 ;
+
+# (Incorrect) Returns all instances of 'Rock', including alt rock, etc.
+
+SELECT name, genre FROM albums WHERE INSTR('Rock', genre) > 0 ;
+
+# (Incorrect) returns first instance of rock
